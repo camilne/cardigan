@@ -1,5 +1,7 @@
 # Cardigan
 
+[![Build Status](https://travis-ci.org/camilne/cardigan.svg?branch=master)](https://travis-ci.org/camilne/cardigan)
+
 This is a repository dedicated to implementing algorithms and data structures in
 C++.
 

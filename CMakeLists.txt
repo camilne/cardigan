@@ -1,11 +1,11 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 2.8)
 project(cardigan)
 
 option(tests "Build tests" OFF)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall -Wextra")
+add_definitions(${CMAKE_CXX_FLAGS})
 
 set(INCLUDE_FILES
     include/sorting/bubble_sort.hpp
@@ -23,7 +23,7 @@ if(${tests})
         include/test/common.test.hpp
         include/third_party/catch.hpp
     )
-    
+
     set(TEST_SOURCE_FILES
         test/sorting/bubble_sort.test.cpp
         test/main.cpp

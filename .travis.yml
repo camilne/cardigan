@@ -1,0 +1,76 @@
+language: cpp
+sudo: required
+
+matrix:
+    include:
+        # Linux GCC 6
+        - os: linux
+          compiler: gcc
+          addons:
+              apt:
+                  sources: ubuntu-toolchain-r-test
+                  packages: g++-6
+          env: COMPILER="g++-6"
+
+        # Linux GCC 7
+        - os: linux
+          compiler: gcc
+          addons:
+              apt:
+                  sources: ubuntu-toolchain-r-test
+                  packages: g++-7
+          env: COMPILER="g++-7"
+
+        # Linux Clang 4
+        - os: linux
+          compiler: clang
+          addons:
+              apt:
+                  sources: llvm-toolchain-trusty-4.0
+                  packages: clang-4.0
+          env: COMPILER='clang++-4.0'
+
+        # Linux Clang 5
+        - os: linux
+          compiler: clang
+          addons:
+              apt:
+                  sources: llvm-toolchain-trusty-5.0
+                  packages: clang-5.0
+          env: COMPILER='clang++-5.0'
+
+        # OSX Xcode8 GCC
+        - os: osx
+          osx_image: xcode8.3
+          compiler: gcc
+          env: COMPILER='g++'
+
+        # OSX Xcode9 GCC
+        - os: osx
+          osx_image: xcode9.2
+          compiler: gcc
+          env: COMPILER='g++'
+
+        # OSX Xcode8 Clang
+        - os: osx
+          osx_image: xcode8.3
+          compiler: clang
+          env: COMPILER='clang++'
+
+        # OSX Xcode9 Clang
+        - os: osx
+          osx_image: xcode9.2
+          compiler: clang
+          env: COMPILER='clang++'
+
+before_install:
+    - export CXX=${COMPILER}
+
+install: true
+
+script:
+    - mkdir build
+    - cd build
+    - cmake -Dtests=ON ..
+    - make
+    - ./cardigan.test
