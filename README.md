@@ -13,8 +13,8 @@ C++.
 
 ## Getting started
 
-If you wish to contribute to the repo, then view the [contributing
-guide](contrib-guide). Otherwise, you can clone the repo with
+If you wish to contribute to the repo, then view the
+[contributing guide][contrib-guide]. Otherwise, you can clone the repo with
 `git clone https://github.com/camilne/cardigan.git`. Then, checkout how to
 [build](#building) the library and run [tests](#testing).
 
@@ -53,4 +53,5 @@ This section details the current status of the contents of the library.
 | :------------- | :------------- | :------------- | :------------- |
 |                |                |                |                ||
 
-[contrib-guide]: .github/CONTRIBUTING.md
+
+[contrib-guide]: https://github.com/camilne/cardigan/blob/master/.github/CONTRIBUTING.md

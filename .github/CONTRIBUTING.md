@@ -46,7 +46,7 @@ Follow the steps below to contribute to the project:
 
    ```bash
    # Clone your fork of the repo into the current directory
-   git clone https://github.com/<your-username>/scratch-cardigan.git
+   git clone https://github.com/<your-username>/cardigan.git
    # Navigate to the newly cloned directory
    cd scratch-cardigan
    # Assign the original repo to a remote called "upstream"
