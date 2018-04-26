@@ -49,9 +49,9 @@ make
 
 This section details the current status of the contents of the library.
 
-| Feature        | Implemented    | Has Tests      | Location       |
-| :------------- | :------------- | :------------- | :------------- |
-|                |                |                |                ||
+| Feature        | Implemented             | Has Tests          | Location                                           |
+| :------------- | :-------------          | :-------------     | :-------------                                     |
+| Bubble sort    | :ballot_box_with_check: | :white_check_mark: | [bubble_sort.hpp](include/sorting/bubble_sort.hpp) |
 
 
 [contrib-guide]: https://github.com/camilne/cardigan/blob/master/.github/CONTRIBUTING.md
