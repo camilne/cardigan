@@ -4,7 +4,7 @@
 #include "sorting/bubble_sort.hpp"
 #include "test/common.test.hpp"
 
-TEST_CASE("Base case", "[bubble sort]") {
+TEST_CASE("Bubble sort: Base case", "[bubble sort]") {
     std::vector<int> values = {};
     REQUIRE(does_sort(bubble_sort, values.begin(), values.end()));
 
@@ -12,7 +12,7 @@ TEST_CASE("Base case", "[bubble sort]") {
     REQUIRE(does_sort(bubble_sort, values.begin(), values.end()));
 }
 
-TEST_CASE("Non-descending integer", "[bubble sort]") {
+TEST_CASE("Bubble sort: Non-descending integer", "[bubble sort]") {
     std::vector<int> values = {5, 2, 8, -1, 3};
     REQUIRE(does_sort(bubble_sort, values.begin(), values.end()));
 
@@ -23,7 +23,7 @@ TEST_CASE("Non-descending integer", "[bubble sort]") {
     REQUIRE(does_sort(bubble_sort, values.begin(), values.end()));
 }
 
-TEST_CASE("Non-ascending integer", "[bubble sort]") {
+TEST_CASE("Bubble sort: Non-ascending integer", "[bubble sort]") {
     auto reverse = [](auto a, auto b) { return a > b; };
 
     std::vector<int> values = {5, 2, 8, -1, 3};
@@ -36,7 +36,7 @@ TEST_CASE("Non-ascending integer", "[bubble sort]") {
     REQUIRE(does_sort(bubble_sort, values.begin(), values.end(), reverse));
 }
 
-TEST_CASE("floating point", "[bubble sort]") {
+TEST_CASE("Bubble sort: Floating point", "[bubble sort]") {
     std::vector<float> values = {5.2, 2.7, 2.4, -1, 3};
     REQUIRE(does_sort(bubble_sort, values.begin(), values.end()));
 
