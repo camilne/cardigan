@@ -9,6 +9,7 @@ add_definitions(${CMAKE_CXX_FLAGS})
 
 set(INCLUDE_FILES
     include/sorting/bubble_sort.hpp
+    include/sorting/quicksort.hpp
 )
 
 set(SOURCE_FILES
@@ -26,6 +27,7 @@ if(${tests})
 
     set(TEST_SOURCE_FILES
         test/sorting/bubble_sort.test.cpp
+        test/sorting/quicksort.test.cpp
         test/main.cpp
     )
 
