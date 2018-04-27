@@ -51,10 +51,11 @@ make
 
 This section details the current status of the contents of the library.
 
-| Feature        | Implemented             | Has Tests          | Location                                           |
-| :------------- | :-------------          | :-------------     | :-------------                                     |
-| Bubble sort    | :ballot_box_with_check: | :white_check_mark: | [bubble_sort.hpp](include/sorting/bubble_sort.hpp) |
-| Quicksort      | :ballot_box_with_check: | :white_check_mark: | [quicksort.hpp](include/sorting/quicksort.hpp)     |
+| Feature              | Implemented             | Has Tests          | Location                                             |
+| :-------------       | :-------------          | :-------------     | :-------------                                       |
+| Bubble sort          | :ballot_box_with_check: | :white_check_mark: | [bubble_sort.hpp](include/sorting/bubble_sort.hpp)   |
+| Quicksort            | :ballot_box_with_check: | :white_check_mark: | [quicksort.hpp](include/sorting/quicksort.hpp)       |
+| Fisher-Yates shuffle | :ballot_box_with_check: | :white_check_mark: | [fisher_yates.hpp](include/permute/fisher_yates.hpp) |
 
 
 [contrib-guide]: https://github.com/camilne/cardigan/blob/master/.github/CONTRIBUTING.md
