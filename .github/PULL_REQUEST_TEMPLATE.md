@@ -11,6 +11,7 @@
 - [ ] Cleanup commits using `git rebase`
 - [ ] Branch name starts with `fix/` or `feature/`
 - [ ] All tests pass locally
+- [ ] You have updated the README implementation table if you added a new data-structure/algorithm or added tests.
 
 <!-- Replace XXXX with the issue number this resolves. -->
 Closes #XXXX
