@@ -4,6 +4,8 @@
 #include "sorting/bubble_sort.hpp"
 #include "test/common.test.hpp"
 
+using namespace cgn;
+
 TEST_CASE("Bubble sort: Base case", "[bubble sort]") {
     std::vector<int> values = {};
     REQUIRE(does_sort(bubble_sort, values.begin(), values.end()));
