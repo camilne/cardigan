@@ -8,6 +8,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall -Wextra")
 add_definitions(${CMAKE_CXX_FLAGS})
 
 set(INCLUDE_FILES
+    include/number_theory/euclid.hpp
     include/permute/fisher_yates.hpp
     include/sorting/bubble_sort.hpp
     include/sorting/quicksort.hpp
@@ -27,6 +28,7 @@ if(${tests})
     )
 
     set(TEST_SOURCE_FILES
+        test/number_theory/euclid.test.cpp
         test/permute/fisher_yates.test.cpp
         test/sorting/bubble_sort.test.cpp
         test/sorting/quicksort.test.cpp
