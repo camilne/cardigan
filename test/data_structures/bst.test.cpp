@@ -134,3 +134,22 @@ TEST_CASE("BST: Preorder normal", "[bst]") {
 
     REQUIRE(order == expectedOrder);
 }
+
+TEST_CASE("BST: Lowest common ancestor", "[bst]") {
+    BinarySearchTree<int> bst;
+    bst.insert(10);
+    bst.insert(0);
+    bst.insert(-2);
+    bst.insert(4);
+    bst.insert(12);
+
+    REQUIRE(bst.lowest_common_ancestor(10, 10));
+    REQUIRE(*bst.lowest_common_ancestor(10, 10) == 10);
+    REQUIRE(bst.lowest_common_ancestor(10, 0));
+    REQUIRE(*bst.lowest_common_ancestor(10, 0) == 10);
+    REQUIRE(bst.lowest_common_ancestor(0, 12));
+    REQUIRE(*bst.lowest_common_ancestor(0, 12) == 10);
+    REQUIRE(bst.lowest_common_ancestor(-2, 4));
+    REQUIRE(*bst.lowest_common_ancestor(-2, 4) == 0);
+    REQUIRE(bst.lowest_common_ancestor(-5, 4) == nullptr);
+}

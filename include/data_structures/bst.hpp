@@ -2,6 +2,7 @@
 #define BST_HPP
 
 #include <functional>
+#include <memory>
 
 namespace cgn {
     template <typename T>
@@ -17,6 +18,7 @@ namespace cgn {
         void inorder(std::function<void(T&)> predicate);
         void postorder(std::function<void(T&)> predicate);
         void preorder(std::function<void(T&)> predicate);
+        std::unique_ptr<T> lowest_common_ancestor(const T& a, const T& b) const;
 
         virtual ~BinarySearchTree();
     protected:
@@ -70,6 +72,29 @@ namespace cgn {
     template <typename T>
     void BinarySearchTree<T>::preorder(std::function<void(T&)> predicate) {
         preorder(root, predicate);
+    }
+
+    template <typename T>
+    std::unique_ptr<T> BinarySearchTree<T>::lowest_common_ancestor(const T& a, const T& b) const {
+        if(!find(a) || !find(b))
+            return nullptr;
+
+        auto current = root;
+        while(current) {
+            if(current->data > a && current->data > b)
+                current = current->left;
+            else if(current->data < a && current->data < b)
+                current = current->right;
+            else
+                break;
+        }
+
+        return std::make_unique<T>(current->data);
+    }
+
+    template <typename T>
+    BinarySearchTree<T>::~BinarySearchTree() {
+        cleanup(root);
     }
 
     template <typename T>
@@ -164,11 +189,6 @@ namespace cgn {
         predicate(node->data);
         preorder(node->left, predicate);
         preorder(node->right, predicate);
-    }
-
-    template <typename T>
-    BinarySearchTree<T>::~BinarySearchTree() {
-        cleanup(root);
     }
 
     template <typename T>
