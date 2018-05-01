@@ -153,3 +153,43 @@ TEST_CASE("BST: Lowest common ancestor", "[bst]") {
     REQUIRE(*bst.lowest_common_ancestor(-2, 4) == 0);
     REQUIRE(bst.lowest_common_ancestor(-5, 4) == nullptr);
 }
+
+TEST_CASE("BST: Copy constructor", "[bst]") {
+    BinarySearchTree<int> bst1;
+    bst1.insert(5);
+    BinarySearchTree<int> bst2 = bst1;
+
+    REQUIRE(bst1.find(5));
+    REQUIRE(bst2.find(5));
+}
+
+TEST_CASE("BST: Copy assignment", "[bst]") {
+    BinarySearchTree<int> bst1;
+    bst1.insert(5);
+    BinarySearchTree<int> bst2;
+    bst2.insert(10);
+    bst2 = bst1;
+
+    REQUIRE(bst1.find(5));
+    REQUIRE(bst2.find(5));
+}
+
+TEST_CASE("BST: Move constructor", "[bst]") {
+    BinarySearchTree<int> bst1;
+    bst1.insert(5);
+    BinarySearchTree<int> bst2(std::move(bst1));
+
+    REQUIRE(bst2.find(5));
+}
+
+TEST_CASE("BST: Move assignment", "[bst]") {
+    BinarySearchTree<int> bst1;
+    bst1.insert(5);
+    BinarySearchTree<int> bst2;
+    bst2.insert(10);
+    bst2 = std::move(bst1);
+
+    REQUIRE(bst1.find(5) == false);
+    REQUIRE(bst2.find(5));
+    REQUIRE(bst2.find(10) == false);
+}

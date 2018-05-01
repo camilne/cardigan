@@ -12,20 +12,19 @@ namespace cgn {
             : root(nullptr)
         {}
 
-        bool insert(const T& data);
-        bool find(const T& data) const;
-        bool remove(const T& data);
+        virtual bool insert(const T& data);
+        virtual bool find(const T& data) const;
+        virtual bool remove(const T& data);
         void inorder(std::function<void(T&)> predicate);
         void postorder(std::function<void(T&)> predicate);
         void preorder(std::function<void(T&)> predicate);
         std::unique_ptr<T> lowest_common_ancestor(const T& a, const T& b) const;
 
-        virtual ~BinarySearchTree();
     protected:
         struct Node {
             T data;
-            Node* left;
-            Node* right;
+            std::shared_ptr<Node> left;
+            std::shared_ptr<Node> right;
 
             explicit Node(const T& data)
                 : data(data), left(nullptr), right(nullptr)
@@ -33,15 +32,14 @@ namespace cgn {
         };
 
     private:
-        Node* root;
+        std::shared_ptr<Node> root;
 
-        virtual bool insert(Node*& node, const T& data);
-        virtual bool find(Node* node, const T& data) const;
-        virtual bool remove(Node*& node, const T& data);
-        void inorder(Node* node, std::function<void(T&)> predicate);
-        void postorder(Node* node, std::function<void(T&)> predicate);
-        void preorder(Node* node, std::function<void(T&)> predicate);
-        virtual void cleanup(Node*& node);
+        virtual bool insert(std::shared_ptr<Node>& node, const T& data);
+        virtual bool find(std::shared_ptr<Node> node, const T& data) const;
+        virtual bool remove(std::shared_ptr<Node>& node, const T& data);
+        void inorder(std::shared_ptr<Node> node, std::function<void(T&)> predicate);
+        void postorder(std::shared_ptr<Node> node, std::function<void(T&)> predicate);
+        void preorder(std::shared_ptr<Node> node, std::function<void(T&)> predicate);
     };
 
     template <typename T>
@@ -93,14 +91,9 @@ namespace cgn {
     }
 
     template <typename T>
-    BinarySearchTree<T>::~BinarySearchTree() {
-        cleanup(root);
-    }
-
-    template <typename T>
-    bool BinarySearchTree<T>::insert(Node*& node, const T& data) {
+    bool BinarySearchTree<T>::insert(std::shared_ptr<Node>& node, const T& data) {
         if(!node) {
-            node = new Node(data);
+            node = std::make_shared<Node>(data);
             return true;
         }
 
@@ -114,7 +107,7 @@ namespace cgn {
     }
 
     template <typename T>
-    bool BinarySearchTree<T>::find(Node* node, const T& data) const {
+    bool BinarySearchTree<T>::find(std::shared_ptr<Node> node, const T& data) const {
         if(!node) {
             return false;
         }
@@ -129,7 +122,7 @@ namespace cgn {
     }
 
     template <typename T>
-    bool BinarySearchTree<T>::remove(Node*& node, const T& data) {
+    bool BinarySearchTree<T>::remove(std::shared_ptr<Node>& node, const T& data) {
         if(!node) {
             return false;
         }
@@ -162,7 +155,7 @@ namespace cgn {
     }
 
     template <typename T>
-    void BinarySearchTree<T>::inorder(Node* node, std::function<void(T&)> predicate) {
+    void BinarySearchTree<T>::inorder(std::shared_ptr<Node> node, std::function<void(T&)> predicate) {
         if(!node)
             return;
 
@@ -172,7 +165,7 @@ namespace cgn {
     }
 
     template <typename T>
-    void BinarySearchTree<T>::postorder(Node* node, std::function<void(T&)> predicate) {
+    void BinarySearchTree<T>::postorder(std::shared_ptr<Node> node, std::function<void(T&)> predicate) {
         if(!node)
             return;
 
@@ -182,23 +175,13 @@ namespace cgn {
     }
 
     template <typename T>
-    void BinarySearchTree<T>::preorder(Node* node, std::function<void(T&)> predicate) {
+    void BinarySearchTree<T>::preorder(std::shared_ptr<Node> node, std::function<void(T&)> predicate) {
         if(!node)
             return;
 
         predicate(node->data);
         preorder(node->left, predicate);
         preorder(node->right, predicate);
-    }
-
-    template <typename T>
-    void BinarySearchTree<T>::cleanup(Node*& node) {
-        if(node) {
-            cleanup(node->left);
-            cleanup(node->right);
-            delete node;
-            node = nullptr;
-        }
     }
 }
 
