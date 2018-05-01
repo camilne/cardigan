@@ -16,6 +16,7 @@ namespace cgn {
         bool remove(const T& data);
         void inorder(std::function<void(T&)> predicate);
         void postorder(std::function<void(T&)> predicate);
+        void preorder(std::function<void(T&)> predicate);
 
         virtual ~BinarySearchTree();
     protected:
@@ -37,6 +38,7 @@ namespace cgn {
         virtual bool remove(Node*& node, const T& data);
         void inorder(Node* node, std::function<void(T&)> predicate);
         void postorder(Node* node, std::function<void(T&)> predicate);
+        void preorder(Node* node, std::function<void(T&)> predicate);
         virtual void cleanup(Node*& node);
     };
 
@@ -63,6 +65,11 @@ namespace cgn {
     template <typename T>
     void BinarySearchTree<T>::postorder(std::function<void(T&)> predicate) {
         postorder(root, predicate);
+    }
+
+    template <typename T>
+    void BinarySearchTree<T>::preorder(std::function<void(T&)> predicate) {
+        preorder(root, predicate);
     }
 
     template <typename T>
@@ -147,6 +154,16 @@ namespace cgn {
         postorder(node->left, predicate);
         postorder(node->right, predicate);
         predicate(node->data);
+    }
+
+    template <typename T>
+    void BinarySearchTree<T>::preorder(Node* node, std::function<void(T&)> predicate) {
+        if(!node)
+            return;
+
+        predicate(node->data);
+        preorder(node->left, predicate);
+        preorder(node->right, predicate);
     }
 
     template <typename T>

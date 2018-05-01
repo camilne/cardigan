@@ -109,3 +109,28 @@ TEST_CASE("BST: Postorder normal", "[bst]") {
 
     REQUIRE(order == expectedOrder);
 }
+
+TEST_CASE("BST: Preorder empty", "[bst]") {
+    BinarySearchTree<int> bst;
+    bst.preorder([](auto&){});
+}
+
+TEST_CASE("BST: Preorder normal", "[bst]") {
+    BinarySearchTree<int> bst;
+    bst.insert(10);
+    bst.insert(-2);
+    bst.insert(0);
+    bst.insert(4);
+    bst.insert(12);
+
+    std::vector<int> order;
+    auto predicate = [&](int& element) {
+        order.push_back(element);
+    };
+
+    bst.preorder(predicate);
+
+    const std::vector<int> expectedOrder = {10, -2, 0, 4, 12};
+
+    REQUIRE(order == expectedOrder);
+}
