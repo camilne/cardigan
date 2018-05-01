@@ -1,3 +1,5 @@
+#include <vector>
+
 #include "data_structures/bst.hpp"
 #include "third_party/catch.hpp"
 
@@ -56,4 +58,29 @@ TEST_CASE("BST: Remove", "[bst]") {
     REQUIRE(bst.remove(14) == true);
     REQUIRE(bst.remove(-2) == true);
     REQUIRE(bst.remove(-2) == false);
+}
+
+TEST_CASE("BST: Inorder empty", "[bst]") {
+    BinarySearchTree<int> bst;
+    bst.inorder([](auto&){});
+}
+
+TEST_CASE("BST: Inorder normal", "[bst]") {
+    BinarySearchTree<int> bst;
+    bst.insert(10);
+    bst.insert(-2);
+    bst.insert(0);
+    bst.insert(4);
+    bst.insert(12);
+
+    std::vector<int> order;
+    auto predicate = [&](int& element) {
+        order.push_back(element);
+    };
+
+    bst.inorder(predicate);
+
+    const std::vector<int> expectedOrder = {-2, 0, 4, 10, 12};
+
+    REQUIRE(order == expectedOrder);
 }

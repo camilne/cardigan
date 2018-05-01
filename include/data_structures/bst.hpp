@@ -1,6 +1,8 @@
 #ifndef BST_HPP
 #define BST_HPP
 
+#include <functional>
+
 namespace cgn {
     template <typename T>
     class BinarySearchTree {
@@ -12,6 +14,7 @@ namespace cgn {
         bool insert(const T& data);
         bool find(const T& data) const;
         bool remove(const T& data);
+        void inorder(std::function<void(T&)> predicate);
 
         virtual ~BinarySearchTree();
     protected:
@@ -31,6 +34,7 @@ namespace cgn {
         virtual bool insert(Node*& node, const T& data);
         virtual bool find(Node* node, const T& data) const;
         virtual bool remove(Node*& node, const T& data);
+        void inorder(Node* node, std::function<void(T&)> predicate);
         virtual void cleanup(Node*& node);
     };
 
@@ -47,6 +51,11 @@ namespace cgn {
     template <typename T>
     bool BinarySearchTree<T>::remove(const T& data) {
         return remove(root, data);
+    }
+
+    template <typename T>
+    void BinarySearchTree<T>::inorder(std::function<void(T&)> predicate) {
+        inorder(root, predicate);
     }
 
     template <typename T>
@@ -111,6 +120,16 @@ namespace cgn {
         node->data = nextNode->data;
         // Delete successor
         return remove(node->right, node->data);
+    }
+
+    template <typename T>
+    void BinarySearchTree<T>::inorder(Node* node, std::function<void(T&)> predicate) {
+        if(!node)
+            return;
+
+        inorder(node->left, predicate);
+        predicate(node->data);
+        inorder(node->right, predicate);
     }
 
     template <typename T>
