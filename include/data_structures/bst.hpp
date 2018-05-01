@@ -10,6 +10,7 @@ namespace cgn {
         {}
 
         bool insert(const T& data);
+        bool find(const T& data) const;
 
         virtual ~BinarySearchTree();
     protected:
@@ -28,12 +29,18 @@ namespace cgn {
         Node* root;
 
         virtual bool insert(Node*& node, const T& data);
+        virtual bool find(Node* node, const T& data) const;
         virtual void cleanup(Node*& node);
     };
 
     template <typename T>
     bool BinarySearchTree<T>::insert(const T& data) {
         return insert(root, data);
+    }
+
+    template <typename T>
+    bool BinarySearchTree<T>::find(const T& data) const {
+        return find(root, data);
     }
 
     template <typename T>
@@ -50,6 +57,21 @@ namespace cgn {
         }
 
         return false;
+    }
+
+    template <typename T>
+    bool BinarySearchTree<T>::find(Node* node, const T& data) const {
+        if(!node) {
+            return false;
+        }
+
+        if(data < node->data) {
+            return find(node->left, data);
+        } else if(data > node->data) {
+            return find(node->right, data);
+        }
+
+        return true;
     }
 
     template <typename T>
