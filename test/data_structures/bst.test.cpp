@@ -40,3 +40,20 @@ TEST_CASE("BST: Find", "[bst]") {
     REQUIRE(bst.find(30) == false);
     REQUIRE(bst.find(-20) == false);
 }
+
+TEST_CASE("BST: Remove", "[bst]") {
+    BinarySearchTree<int> bst;
+    bst.insert(10);
+    bst.insert(-2);
+    bst.insert(0);
+    bst.insert(4);
+    bst.insert(12);
+    bst.insert(20);
+    bst.insert(14);
+
+    REQUIRE(bst.remove(4) == true);
+    REQUIRE(bst.find(4) == false);
+    REQUIRE(bst.remove(14) == true);
+    REQUIRE(bst.remove(-2) == true);
+    REQUIRE(bst.remove(-2) == false);
+}

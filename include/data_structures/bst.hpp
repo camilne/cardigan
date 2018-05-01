@@ -11,11 +11,11 @@ namespace cgn {
 
         bool insert(const T& data);
         bool find(const T& data) const;
+        bool remove(const T& data);
 
         virtual ~BinarySearchTree();
     protected:
-        class Node {
-        public:
+        struct Node {
             T data;
             Node* left;
             Node* right;
@@ -30,6 +30,7 @@ namespace cgn {
 
         virtual bool insert(Node*& node, const T& data);
         virtual bool find(Node* node, const T& data) const;
+        virtual bool remove(Node*& node, const T& data);
         virtual void cleanup(Node*& node);
     };
 
@@ -41,6 +42,11 @@ namespace cgn {
     template <typename T>
     bool BinarySearchTree<T>::find(const T& data) const {
         return find(root, data);
+    }
+
+    template <typename T>
+    bool BinarySearchTree<T>::remove(const T& data) {
+        return remove(root, data);
     }
 
     template <typename T>
@@ -72,6 +78,39 @@ namespace cgn {
         }
 
         return true;
+    }
+
+    template <typename T>
+    bool BinarySearchTree<T>::remove(Node*& node, const T& data) {
+        if(!node) {
+            return false;
+        }
+
+        if(data < node->data) {
+            return remove(node->left, data);
+        } else if(data > node->data) {
+            return remove(node->right, data);
+        }
+
+        if(!node->left) {
+            node = node->right;
+            return true;
+        }
+
+        if(!node->right) {
+            node = node->left;
+            return true;
+        }
+
+        // Find successor node
+        auto nextNode = node->right;
+        while(nextNode->left)
+            nextNode = node->left;
+
+        // Set current node to successor
+        node->data = nextNode->data;
+        // Delete successor
+        return remove(node->right, node->data);
     }
 
     template <typename T>
