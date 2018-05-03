@@ -12,6 +12,9 @@
 * When contributing to this repository, please first inform or discuss the
   change(s) you wish to make via an issue. This helps in letting others know
   what you're working on.
+  
+* If you wish to resolve an existing issue, then please claim the issue in a
+  comment so that others know you are working on it.
 
 * For each algorithm, mention its **time complexity** and **space complexity**
   in the _"description comment"_ of its implementation. In case the average-case
@@ -48,7 +51,7 @@ Follow the steps below to contribute to the project:
    # Clone your fork of the repo into the current directory
    git clone https://github.com/<your-username>/cardigan.git
    # Navigate to the newly cloned directory
-   cd scratch-cardigan
+   cd cardigan
    # Assign the original repo to a remote called "upstream"
    git remote add upstream https://github.com/camilne/cardigan.git
    ```
