@@ -35,7 +35,7 @@ TEST_CASE("Fisher-Yates: Integer cases", "[fisher-yates]") {
 
 TEST_CASE("Fisher-Yates: Doesn't remove or duplate elements", "[fisher-yates]") {
     srand(0);
-    for(auto i = 0; i < 1000; ++i) {
+    for(auto i = 0; i < 50; ++i) {
         std::vector<int> values(1000);
         std::iota(values.begin(), values.end(), 0);
 
