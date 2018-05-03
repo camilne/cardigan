@@ -1,7 +1,3 @@
-#### Issue title
-
-<!-- Give your issue a title -->
-
 #### Issue description
 
 <!-- Describe your issue here. List the specific steps to recreate the issue if applicable. -->
