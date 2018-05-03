@@ -8,7 +8,6 @@ C++.
 ## Contents
 
 * [Getting started](#getting-started)
-* [Project structure](#project-structure)
 * [Building](#building)
 * [Testing](#testing)
 * [Implementation status](#implementation-status)
@@ -19,11 +18,6 @@ If you wish to contribute to the repo, then view the
 [contributing guide][contrib-guide]. Otherwise, you can clone the repo with
 `git clone https://github.com/camilne/cardigan.git`. Then, checkout how to
 [build](#building) the library and run [tests](#testing).
-
-## Project structure
-
-The project is split up into different folders and files to facilitate the reuse
-and structure of code.
 
 ## Building
 
