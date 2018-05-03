@@ -43,36 +43,138 @@ namespace cgn {
         void preorder(std::shared_ptr<Node> node, std::function<void(K&, V&)> predicate);
     };
 
+    /*
+    BST insert
+    -------------------
+    Inserts a new node into the BST if the key does not yet exist.
+
+    Time complexity
+    ---------------
+    Average: O(log n), where n is the number of nodes in the tree.
+    Worst: O(n), if the tree has degenerated into a linked list.
+
+    Space complexity
+    ----------------
+    O(log n), where n is the number of nodes in the tree.
+    */
     template <typename K, typename V>
     bool BinarySearchTree<K, V>::insert(const K& key, const V& data) {
         return insert(root, key, data);
     }
 
+    /*
+    BST find/search
+    -------------------
+    Try to find a node with the given key in the BST. Return a pointer to the
+    value of the node if it is found. Return nullptr otherwise.
+
+    Time complexity
+    ---------------
+    Average: O(log n), where n is the number of nodes in the tree.
+    Worst: O(n), if the tree has degenerated into a linked list.
+
+    Space complexity
+    ----------------
+    O(log n), where n is the number of nodes in the tree.
+    */
     template <typename K, typename V>
     std::unique_ptr<V> BinarySearchTree<K, V>::find(const K& key) const {
         return find(root, key);
     }
 
+    /*
+    BST remove/delete
+    -------------------
+    Remove a node from the BST if it exists. Return true if successful. Return
+    false otherwise.
+
+    Time complexity
+    ---------------
+    Average: O(log n), where n is the number of nodes in the tree.
+    Worst: O(n), if the tree has degenerated into a linked list.
+
+    Space complexity
+    ----------------
+    O(log n), where n is the number of nodes in the tree.
+    */
     template <typename K, typename V>
     bool BinarySearchTree<K, V>::remove(const K& key) {
         return remove(root, key);
     }
 
+    /*
+    BST inorder traversal
+    -------------------
+    Traverse the BST in order of increasing key value. The predicate is given
+    the key and value of the current node.
+
+    Time complexity
+    ---------------
+    O(n), where n is the number of nodes in the tree.
+
+    Space complexity
+    ----------------
+    O(log n), where n is the number of nodes in the tree.
+    */
     template <typename K, typename V>
     void BinarySearchTree<K, V>::inorder(std::function<void(K&, V&)> predicate) {
         inorder(root, predicate);
     }
 
+    /*
+    BST postorder traversal
+    -------------------
+    Traverse the BST such that the children of a node are traversed before the
+    node itself. The predicate is given the key and value of the current node.
+
+    Time complexity
+    ---------------
+    O(n), where n is the number of nodes in the tree.
+
+    Space complexity
+    ----------------
+    O(log n), where n is the number of nodes in the tree.
+    */
     template <typename K, typename V>
     void BinarySearchTree<K, V>::postorder(std::function<void(K&, V&)> predicate) {
         postorder(root, predicate);
     }
 
+    /*
+    BST preorder traversal
+    -------------------
+    Traverse the BST such that the children of a node are traversed after the
+    node itself. The predicate is given the key and value of the current node.
+
+    Time complexity
+    ---------------
+    O(n), where n is the number of nodes in the tree.
+
+    Space complexity
+    ----------------
+    O(log n), where n is the number of nodes in the tree.
+    */
     template <typename K, typename V>
     void BinarySearchTree<K, V>::preorder(std::function<void(K&, V&)> predicate) {
         preorder(root, predicate);
     }
 
+    /*
+    BST lowest common ancestor
+    -------------------
+    Find the lowest common ancestor node to two nodes. If successful, returns a
+    pointer to a pair of the key and value of the ancestor node. If either key
+    given does not find a node, then nullptr is returned.
+
+    Time complexity
+    ---------------
+    Average: O(log n), where n is the number of nodes in the tree.
+    Worst: O(n), if the tree has degenerated into a linked list.
+
+    Space complexity
+    ----------------
+    O(log n), where n is the number of nodes in the tree.
+    */
     template <typename K, typename V>
     std::unique_ptr<std::pair<K, V>> BinarySearchTree<K, V>::lowest_common_ancestor(const K& a, const K& b) const {
         if(!find(a) || !find(b))
@@ -92,6 +194,8 @@ namespace cgn {
         return std::make_unique<std::pair<K, V>>(pair);
     }
 
+    // ====== Recursive helper functions ======
+    
     template <typename K, typename V>
     bool BinarySearchTree<K, V>::insert(std::shared_ptr<Node>& node, const K& key, const V& data) {
         if(!node) {
