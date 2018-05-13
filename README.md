@@ -47,6 +47,7 @@ This section details the current status of the contents of the library.
 
 | Feature              | Implemented             | Has Tests          | Location                                             |
 | :-------------       | :-------------          | :-------------     | :-------------                                       |
+| AVL Tree             | :ballot_box_with_check: | :white_check_mark: | [avl.hpp](include/data_structures/avl.hpp)           |
 | Binary Search Tree   | :ballot_box_with_check: | :white_check_mark: | [bst.hpp](include/data_structures/bst.hpp)           |
 | Bubble sort          | :ballot_box_with_check: | :white_check_mark: | [bubble_sort.hpp](include/sorting/bubble_sort.hpp)   |
 | Euclid's Algorithm   | :ballot_box_with_check: | :white_check_mark: | [euclid.hpp](include/number_theory/euclid.hpp)       |
