@@ -6,6 +6,20 @@
 
 namespace cgn {
     template <typename K, typename V>
+    struct BstNode {
+        K key;
+        V data;
+        std::shared_ptr<BstNode> left;
+        std::shared_ptr<BstNode> right;
+
+        BstNode(const K& key, const V& data)
+            : key(key), data(data), left(nullptr), right(nullptr)
+        {}
+
+        virtual ~BstNode() = default;
+    };
+
+    template <typename K, typename V, typename Node = BstNode<K, V>>
     class BinarySearchTree {
     public:
         BinarySearchTree()
@@ -21,23 +35,13 @@ namespace cgn {
         std::unique_ptr<std::pair<K, V>> lowest_common_ancestor(const K& a, const K& b) const;
 
     protected:
-        struct Node {
-            K key;
-            V data;
-            std::shared_ptr<Node> left;
-            std::shared_ptr<Node> right;
-
-            explicit Node(const K& key, const V& data)
-                : key(key), data(data), left(nullptr), right(nullptr)
-            {}
-        };
-
-    private:
         std::shared_ptr<Node> root;
 
         virtual bool insert(std::shared_ptr<Node>& node, const K& key, const V& data);
-        virtual std::unique_ptr<V> find(std::shared_ptr<Node> node, const K& key) const;
         virtual bool remove(std::shared_ptr<Node>& node, const K& key);
+
+    private:
+        virtual std::unique_ptr<V> find(std::shared_ptr<Node> node, const K& key) const;
         void inorder(std::shared_ptr<Node> node, std::function<void(K&, V&)> predicate);
         void postorder(std::shared_ptr<Node> node, std::function<void(K&, V&)> predicate);
         void preorder(std::shared_ptr<Node> node, std::function<void(K&, V&)> predicate);
@@ -57,8 +61,8 @@ namespace cgn {
     ----------------
     O(log n), where n is the number of nodes in the tree.
     */
-    template <typename K, typename V>
-    bool BinarySearchTree<K, V>::insert(const K& key, const V& data) {
+    template <typename K, typename V, typename Node>
+    bool BinarySearchTree<K, V, Node>::insert(const K& key, const V& data) {
         return insert(root, key, data);
     }
 
@@ -77,8 +81,8 @@ namespace cgn {
     ----------------
     O(log n), where n is the number of nodes in the tree.
     */
-    template <typename K, typename V>
-    std::unique_ptr<V> BinarySearchTree<K, V>::find(const K& key) const {
+    template <typename K, typename V, typename Node>
+    std::unique_ptr<V> BinarySearchTree<K, V, Node>::find(const K& key) const {
         return find(root, key);
     }
 
@@ -97,8 +101,8 @@ namespace cgn {
     ----------------
     O(log n), where n is the number of nodes in the tree.
     */
-    template <typename K, typename V>
-    bool BinarySearchTree<K, V>::remove(const K& key) {
+    template <typename K, typename V, typename Node>
+    bool BinarySearchTree<K, V, Node>::remove(const K& key) {
         return remove(root, key);
     }
 
@@ -116,8 +120,8 @@ namespace cgn {
     ----------------
     O(log n), where n is the number of nodes in the tree.
     */
-    template <typename K, typename V>
-    void BinarySearchTree<K, V>::inorder(std::function<void(K&, V&)> predicate) {
+    template <typename K, typename V, typename Node>
+    void BinarySearchTree<K, V, Node>::inorder(std::function<void(K&, V&)> predicate) {
         inorder(root, predicate);
     }
 
@@ -135,8 +139,8 @@ namespace cgn {
     ----------------
     O(log n), where n is the number of nodes in the tree.
     */
-    template <typename K, typename V>
-    void BinarySearchTree<K, V>::postorder(std::function<void(K&, V&)> predicate) {
+    template <typename K, typename V, typename Node>
+    void BinarySearchTree<K, V, Node>::postorder(std::function<void(K&, V&)> predicate) {
         postorder(root, predicate);
     }
 
@@ -154,8 +158,8 @@ namespace cgn {
     ----------------
     O(log n), where n is the number of nodes in the tree.
     */
-    template <typename K, typename V>
-    void BinarySearchTree<K, V>::preorder(std::function<void(K&, V&)> predicate) {
+    template <typename K, typename V, typename Node>
+    void BinarySearchTree<K, V, Node>::preorder(std::function<void(K&, V&)> predicate) {
         preorder(root, predicate);
     }
 
@@ -175,8 +179,8 @@ namespace cgn {
     ----------------
     O(log n), where n is the number of nodes in the tree.
     */
-    template <typename K, typename V>
-    std::unique_ptr<std::pair<K, V>> BinarySearchTree<K, V>::lowest_common_ancestor(const K& a, const K& b) const {
+    template <typename K, typename V, typename Node>
+    std::unique_ptr<std::pair<K, V>> BinarySearchTree<K, V, Node>::lowest_common_ancestor(const K& a, const K& b) const {
         if(!find(a) || !find(b))
             return nullptr;
 
@@ -195,9 +199,9 @@ namespace cgn {
     }
 
     // ====== Recursive helper functions ======
-    
-    template <typename K, typename V>
-    bool BinarySearchTree<K, V>::insert(std::shared_ptr<Node>& node, const K& key, const V& data) {
+
+    template <typename K, typename V, typename Node>
+    bool BinarySearchTree<K, V, Node>::insert(std::shared_ptr<Node>& node, const K& key, const V& data) {
         if(!node) {
             node = std::make_shared<Node>(key, data);
             return true;
@@ -212,8 +216,8 @@ namespace cgn {
         return false;
     }
 
-    template <typename K, typename V>
-    std::unique_ptr<V> BinarySearchTree<K, V>::find(std::shared_ptr<Node> node, const K& key) const {
+    template <typename K, typename V, typename Node>
+    std::unique_ptr<V> BinarySearchTree<K, V, Node>::find(std::shared_ptr<Node> node, const K& key) const {
         if(!node) {
             return nullptr;
         }
@@ -227,8 +231,8 @@ namespace cgn {
         return std::make_unique<V>(node->data);
     }
 
-    template <typename K, typename V>
-    bool BinarySearchTree<K, V>::remove(std::shared_ptr<Node>& node, const K& key) {
+    template <typename K, typename V, typename Node>
+    bool BinarySearchTree<K, V, Node>::remove(std::shared_ptr<Node>& node, const K& key) {
         if(!node) {
             return false;
         }
@@ -261,8 +265,8 @@ namespace cgn {
         return remove(node->right, node->key);
     }
 
-    template <typename K, typename V>
-    void BinarySearchTree<K, V>::inorder(std::shared_ptr<Node> node, std::function<void(K&, V&)> predicate) {
+    template <typename K, typename V, typename Node>
+    void BinarySearchTree<K, V, Node>::inorder(std::shared_ptr<Node> node, std::function<void(K&, V&)> predicate) {
         if(!node)
             return;
 
@@ -271,8 +275,8 @@ namespace cgn {
         inorder(node->right, predicate);
     }
 
-    template <typename K, typename V>
-    void BinarySearchTree<K, V>::postorder(std::shared_ptr<Node> node, std::function<void(K&, V&)> predicate) {
+    template <typename K, typename V, typename Node>
+    void BinarySearchTree<K, V, Node>::postorder(std::shared_ptr<Node> node, std::function<void(K&, V&)> predicate) {
         if(!node)
             return;
 
@@ -281,8 +285,8 @@ namespace cgn {
         predicate(node->key, node->data);
     }
 
-    template <typename K, typename V>
-    void BinarySearchTree<K, V>::preorder(std::shared_ptr<Node> node, std::function<void(K&, V&)> predicate) {
+    template <typename K, typename V, typename Node>
+    void BinarySearchTree<K, V, Node>::preorder(std::shared_ptr<Node> node, std::function<void(K&, V&)> predicate) {
         if(!node)
             return;
 
