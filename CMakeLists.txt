@@ -17,6 +17,7 @@ set(INCLUDE_FILES
     include/permute/fisher_yates.hpp
     include/sorting/bubble_sort.hpp
     include/sorting/quicksort.hpp
+    include/substring/longest_common_substring.hpp
 )
 
 set(SOURCE_FILES
@@ -39,6 +40,7 @@ if(${tests})
         test/permute/fisher_yates.test.cpp
         test/sorting/bubble_sort.test.cpp
         test/sorting/quicksort.test.cpp
+        test/substring/longest_common_substring.test.cpp
         test/main.cpp
     )
 
